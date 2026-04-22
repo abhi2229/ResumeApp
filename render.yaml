@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ResumeApp
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: ASPNETCORE_URLS
+        value: http://+:10000

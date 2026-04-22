@@ -69,7 +69,7 @@
             @Model.Profile.Location
           </span>
           <span class="c-link">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5z"/></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wsidth="1.8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5z"/></svg>
             Digha, West Bengal
           </span>
         </div>
@@ -138,12 +138,13 @@
           <span class="s-tag">Angular</span>
           <span class="s-tag">ASP.NET</span>
           <span class="s-tag">C#</span>
+          <span class="s-tag">Rest API</span>
         </div>
       </div>
 
       <div class="s-divider"></div>
 
-      <!-- Mini education -->
+      <!-- Education -->
       <div class="s-section">
         <div class="s-label">Education</div>
         <div style="font-family:var(--mono);font-size:0.65rem;color:var(--text-2);line-height:1.8;">
@@ -257,25 +258,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- EDUCATION -->
-    <section class="edu-section fade-up" id="education">
-      <div class="sec-head">
-        <span class="sec-title">Education</span>
-        <div class="sec-line"></div>
-      </div>
-
-      <div class="edu-timeline">
-        @foreach (var edu in Model.Educations)
-        {
-          <div class="edu-entry">
-            <div class="edu-year-tag">@edu.Year</div>
-            <div class="edu-degree">@edu.Degree</div>
-            <div class="edu-school">@edu.Institution</div>
-          </div>
-        }
       </div>
     </section>
 

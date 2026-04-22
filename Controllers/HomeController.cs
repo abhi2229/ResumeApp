@@ -15,7 +15,7 @@ namespace ResumeApp.Controllers
                     Name        = "Abhishek Maiti",
                     Initials    = "AM",
                     Title       = "Enablon Consultant · Cognizant",
-                    Bio         = "Enablon Consultant with hands-on experience in the Metrics module, supporting configuration, production issue analysis, and UAT while working closely with business and functional teams. Worked with two pharmaceutical clients and strong in logic building for NABSIC rules to meet complex business requirements. Familiar with Shared Functions, Incident Management, and the Risk Management module in Enablon. Currently upskilling in Azure and Angular to grow further in the IT domain.",
+                    Bio         = "Enablon Consultant with hands-on experience in the Metrics ,Shared Functions, Incident Management and Risk Management. Worked with two pharmaceutical clients following SDLC principles and strong in logic building for NABSIC rules to meet complex business requirements. Familiar with EHS management, Shared Functions, Incident Management, and the Risk Management module in Enablon. Currently upskilling in Azure and Angular to grow further in the IT domain.",
                     Email       = "maity2229@gmail.com",
                     Phone       = "+91 7602968387",
                     Location    = "Hyderabad, Telangana, India",
@@ -32,11 +32,14 @@ namespace ResumeApp.Controllers
                         Period         = "Sep 2025 – Present",
                         Bullets        = new List<string>
                         {
-                            "Providing Enablon platform support and configuration for pharmaceutical clients, focusing on the Metrics module.",
+                            "Providing Enablon platform support and configuration for pharmaceutical clients, focusing on the Metrics and GXP modules.",
                             "Analysing and resolving production issues, performing root-cause analysis and coordinating fixes with functional teams.",
                             "Building and validating NABSIC rules to address complex business requirements and ensure data accuracy.",
+                            "Created customized KPIs using Business Analyzer Templates (BAT) with advanced aggregation logic (SUM, AVG) and consolidation algorithms.",
+                            "Resolved consolidation issues involving monthly vs quarterly calculation variance and NULL vs 0 value handling in data aggregation.",
                             "Supporting UAT cycles by collaborating closely with business stakeholders to verify configurations meet requirements.",
-                            "Working with Shared Functions, Incident Management, and Risk Management modules in Enablon."
+                            "Working with Shared Functions, Incident Management and Risk Management modules in Enablon.",
+                            "Following SDLC best practices throughout the development and support lifecycle."
                         }
                     },
                     new Experience
@@ -77,8 +80,10 @@ namespace ResumeApp.Controllers
                         Skills   = new List<Skill>
                         {
                             new Skill { Name = "Metrics Module",      IsPrimary = true },
+                            new Skill { Name = "GXP Module",          IsPrimary = true },
                             new Skill { Name = "NABSIC Rules",        IsPrimary = true },
                             new Skill { Name = "Shared Functions",    IsPrimary = true },
+                            new Skill { Name = "EHS Management",      IsPrimary = false },
                             new Skill { Name = "Incident Management", IsPrimary = false },
                             new Skill { Name = "Risk Management",     IsPrimary = false },
                             new Skill { Name = "Proton Lifecycle Management Tool",    IsPrimary = false }
@@ -113,6 +118,7 @@ namespace ResumeApp.Controllers
                         Skills   = new List<Skill>
                         {
                             new Skill { Name = "Pharmaceutical Domain", IsPrimary = false },
+                            new Skill { Name = "SDLC",                  IsPrimary = true },
                             new Skill { Name = "UAT Support",           IsPrimary = false },
                             new Skill { Name = "Production Support",    IsPrimary = false },
                             new Skill { Name = "Business Analysis",     IsPrimary = false }
@@ -142,21 +148,7 @@ namespace ResumeApp.Controllers
                     }
                 },
 
-                Educations = new List<Education>
-                {
-                    new Education
-                    {
-                        Degree      = "Master of Computer Applications (MCA)",
-                        Institution = "Institute of Engineering & Management (IEM)",
-                        Year        = "2021 – 2023"
-                    },
-                    new Education
-                    {
-                        Degree      = "Bachelor of Science in Computer Science",
-                        Institution = "Midnapore College",
-                        Year        = "2018 – 2021"
-                    }
-                },
+        
 
                 Certifications = new List<Certification>
                 {
