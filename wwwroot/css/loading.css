@@ -90,19 +90,4 @@ body.loading-state {
     overflow: hidden;
 }
 
-/* Desktop first approach */
-@media (max-width: 768px) {
-    .loading-overlay-content {
-        width: 90%;
-        padding: 20px;
-    }
-
-    .loading-overlay-logo {
-        font-size: 2.5rem;
-    }
-
-    .loading-overlay-spinner {
-        width: 40px;
-        height: 40px;
-    }
-}
+/* Desktop first approach - no mobile scaling */

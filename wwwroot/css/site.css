@@ -1142,15 +1142,7 @@ nav:hover::after { width: calc(100% - 6rem); }
 }
 
 /* ─── RESPONSIVE ─────────────────────── */
-@media (max-width: 860px) {
-  .shell { grid-template-columns: 1fr; }
-  .sidebar { position: static; height: auto; }
-  .main-content { padding: 3rem 1.5rem 4rem; }
-  .skills-matrix { grid-template-columns: 1fr; }
-  .cert-grid { grid-template-columns: 1fr; }
-  nav { padding: 0 1.2rem; }
-  .nav-links li:not(:last-child):not(:nth-last-child(2)) { display: none; }
-}
+/* Desktop layout only - no responsive changes */
 
 /* ─── PRINT RESPONSIVE ─────────────────── */
 @media print and (max-width: 860px) {
