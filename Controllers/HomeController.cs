@@ -15,7 +15,7 @@ namespace ResumeApp.Controllers
                     Name        = "Abhishek Maiti",
                     Initials    = "AM",
                     Title       = "Enablon Consultant · Cognizant",
-                    Bio         = "Enablon Consultant with hands-on experience in the Metrics ,Shared Functions, Incident Management and Risk Management. Worked with two pharmaceutical clients following SDLC principles and strong in logic building for NABSIC rules to meet complex business requirements. Familiar with EHS management, Shared Functions, Incident Management, and the Risk Management module in Enablon. Currently upskilling in Azure and Angular to grow further in the IT domain.",
+                    Bio         = "Enablon Consultant specializing in Metrics and NABSIC logic, with hands-on experience supporting pharmaceutical clients in production environments.\nFocused on resolving complex aggregation and consolidation issues, improving data accuracy, and delivering reliable KPI reporting.\nCurrently expanding into Azure and Angular to build end-to-end scalable solutions.",
                     Email       = "maity2229@gmail.com",
                     Phone       = "+91 7602968387",
                     Location    = "Hyderabad, Telangana, India",
