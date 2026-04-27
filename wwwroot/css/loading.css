@@ -12,6 +12,16 @@
     z-index: 9999;
     opacity: 1;
     transition: opacity 0.5s ease-out;
+    animation: fadeInOverlay 0.3s ease-in;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .loading-overlay.hidden {
@@ -22,6 +32,18 @@
 .loading-overlay-content {
     text-align: center;
     color: white;
+    animation: slideInContent 0.6s ease-out;
+}
+
+@keyframes slideInContent {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .loading-overlay-logo {
@@ -29,6 +51,23 @@
     font-weight: 700;
     margin-bottom: 1.5rem;
     letter-spacing: 0.1em;
+    animation: bounceIn 0.8s ease-out;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    70% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .loading-overlay-logo span {
@@ -46,20 +85,35 @@
 }
 
 @keyframes loading-spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% { 
+        transform: rotate(0deg);
+    }
+    100% { 
+        transform: rotate(360deg);
+    }
 }
 
 .loading-overlay-text {
     font-size: 1.1rem;
     margin-bottom: 0.3rem;
     font-weight: 500;
+    animation: fadeInText 0.6s ease-out 0.2s both;
+}
+
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .loading-overlay-subtext {
     font-size: 0.9rem;
     opacity: 0.9;
     margin-top: 1rem;
+    animation: fadeInText 0.6s ease-out 0.4s both;
 }
 
 .loading-dots {
@@ -77,12 +131,27 @@
     animation: loading-bounce 1.4s infinite;
 }
 
-.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
-.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots span:nth-child(1) { 
+    animation-delay: -0.32s;
+}
+
+.loading-dots span:nth-child(2) { 
+    animation-delay: -0.16s;
+}
+
+.loading-dots span:nth-child(3) { 
+    animation-delay: 0s;
+}
 
 @keyframes loading-bounce {
-    0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
-    40% { transform: scale(1); opacity: 1; }
+    0%, 80%, 100% { 
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% { 
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* Show loading overlay by default */
