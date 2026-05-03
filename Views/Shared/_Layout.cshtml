@@ -2,30 +2,12 @@
 <html lang="en" id="html-root" data-theme="dark">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=1366, initial-scale=0.5, user-scalable=yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>@ViewData["Title"] — Abhishek Maiti</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-<style>
-  /* Force Desktop Layout */
-  * {
-    -webkit-user-select: text !important;
-    user-select: text !important;
-  }
-
-  html {
-    min-width: 1366px;
-    font-size: 16px !important;
-  }
-
-  body {
-    min-width: 1366px !important;
-    min-height: 100vh;
-    width: 1366px;
-  }
-</style>
 </head>
 <body>
 
@@ -44,7 +26,7 @@
 
 @RenderBody()
 
-<script src="~/js/desktop-mode.js" asp-append-version="true"></script>
+<script src="~/js/mobile-desktop-mode.js" asp-append-version="true"></script>
 <script src="~/js/theme.js" asp-append-version="true"></script>
 </body>
 </html>
