@@ -9,8 +9,98 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
 <link rel="stylesheet" href="~/css/mobile.css" asp-append-version="true"/>
+
+<!-- Inline mobile blocker styles - runs immediately -->
+<style>
+html.mobile-detected body { display: none; }
+html.mobile-detected #mobile-blocker-overlay { display: flex !important; }
+#mobile-blocker-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(0,0,0,0.98);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Outfit', sans-serif;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+#mobile-blocker-content {
+  background: #111;
+  border: 1px solid #2e2e2e;
+  border-radius: 16px;
+  padding: 40px 28px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  color: #eee;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.8);
+}
+#mobile-blocker-icon { font-size: 3.5rem; margin-bottom: 16px; }
+#mobile-blocker-content h2 { font-size: 1.4rem; font-weight: 700; margin: 0 0 12px; color: #fff; }
+#mobile-blocker-content > p { font-size: 0.95rem; color: #aaa; line-height: 1.7; margin: 0 0 20px; }
+#mobile-blocker-instructions { background: #1a1a1a; border-radius: 10px; padding: 16px; margin-bottom: 24px; text-align: left; }
+#mobile-blocker-instructions p { margin: 0 0 12px; font-size: 0.85rem; color: #bbb; line-height: 1.6; }
+#mobile-blocker-instructions p:last-child { margin-bottom: 0; }
+#mobile-blocker-instructions strong { color: #fff; font-weight: 600; }
+#mobile-blocker-instructions em { color: #e0e0e0; font-style: normal; font-weight: 500; }
+#mobile-blocker-retry {
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 13px 32px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  font-family: 'Outfit', sans-serif;
+  transition: all 0.2s;
+}
+#mobile-blocker-retry:active { background: #ccc; }
+</style>
+
+<!-- Inline mobile detection - runs BEFORE page renders -->
+<script>
+(function() {
+  function isRealMobileDevice() {
+    var ua = navigator.userAgent;
+    // More comprehensive mobile detection
+    var isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Silk|Windows Phone|Mobile|Tablet/i.test(ua);
+    var hasTouchScreen = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+    var isNarrowScreen = window.innerWidth < 1024;
+    var isSmallHeight = window.innerHeight < 700;
+
+    // Debug log (remove in production)
+    console.log('Mobile detection - UA:', isMobileUA, 'Touch:', hasTouchScreen, 'Narrow:', isNarrowScreen, 'SmallHeight:', isSmallHeight);
+
+    // If it's a mobile UA with touch OR small screen, block it
+    return isMobileUA && (hasTouchScreen || isNarrowScreen || isSmallHeight);
+  }
+
+  if (isRealMobileDevice()) {
+    document.documentElement.classList.add('mobile-detected');
+  }
+})();
+</script>
 </head>
 <body>
+
+<!-- Mobile Blocker Overlay -->
+<div id="mobile-blocker-overlay">
+  <div id="mobile-blocker-content">
+    <div id="mobile-blocker-icon">📱</div>
+    <h2>Desktop Only</h2>
+    <p>This site is optimised for desktop viewing.<br>Please access it from a desktop or enable <strong>Desktop Mode</strong>.</p>
+    <div id="mobile-blocker-instructions">
+      <p><strong>Chrome / Android:</strong><br>Tap <em>⋮</em> menu → Check <em>"Desktop site"</em></p>
+      <p><strong>Safari / iOS:</strong><br>Tap <em>aA</em> in address bar → <em>"Request Desktop Website"</em></p>
+    </div>
+    <button id="mobile-blocker-retry">Check Again</button>
+  </div>
+</div>
 
 <nav>
   <a class="nav-brand" href="/">AM<span>.</span>resume</a>
@@ -27,71 +117,7 @@
 @RenderBody()
 
 <script src="~/js/theme.js" asp-append-version="true"></script>
-<script src="~/js/desktop-check.js" asp-append-version="true"></script>
-
-<!-- Desktop Mode Blocker Popup -->
-<div id="desktop-blocker" class="hidden">
-  <div id="desktop-blocker-box">
-    <div id="desktop-blocker-icon">&#128421;</div>
-    <h2>Desktop Mode Required</h2>
-    <p>This site is optimised for desktop viewing.<br>Please enable <strong>Desktop Mode</strong> in your browser to continue.</p>
-    <div id="desktop-blocker-steps">
-      <p><strong>Chrome / Android:</strong><br>Tap &#8942; menu &rarr; Check <em>"Desktop site"</em></p>
-      <p><strong>Safari / iOS:</strong><br>Tap <span style="font-size:1.1em">&#7424;A</span> in address bar &rarr; <em>"Request Desktop Website"</em></p>
-    </div>
-    <button id="desktop-blocker-retry">I've enabled it — Retry</button>
-  </div>
-</div>
-
-<style>
-#desktop-blocker {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: rgba(0,0,0,0.92);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  padding: 20px;
-}
-#desktop-blocker.hidden { display: none !important; }
-#desktop-blocker-box {
-  background: #111;
-  border: 1px solid #2e2e2e;
-  border-radius: 16px;
-  padding: 36px 28px;
-  max-width: 360px;
-  width: 100%;
-  text-align: center;
-  color: #eee;
-  font-family: 'Outfit', sans-serif;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
-}
-#desktop-blocker-icon { font-size: 3rem; margin-bottom: 12px; }
-#desktop-blocker-box h2 { font-size: 1.3rem; font-weight: 600; margin: 0 0 10px; color: #fff; }
-#desktop-blocker-box > p { font-size: 0.9rem; color: #aaa; line-height: 1.6; margin: 0 0 16px; }
-#desktop-blocker-steps { background: #1a1a1a; border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; text-align: left; }
-#desktop-blocker-steps p { margin: 0 0 10px; font-size: 0.82rem; color: #bbb; line-height: 1.5; }
-#desktop-blocker-steps p:last-child { margin-bottom: 0; }
-#desktop-blocker-steps strong { color: #fff; }
-#desktop-blocker-steps em { color: #ddd; }
-#desktop-blocker-retry {
-  background: #fff;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 28px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  width: 100%;
-  font-family: 'Outfit', sans-serif;
-  transition: background 0.2s;
-}
-#desktop-blocker-retry:hover { background: #ddd; }
-</style>
+<script src="~/js/mobile-check.js" asp-append-version="true"></script>
 
 </body>
 </html>
