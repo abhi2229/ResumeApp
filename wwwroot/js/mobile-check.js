@@ -1,10 +1,11 @@
 (function() {
   var overlay = document.getElementById('mobile-blocker-overlay');
   var retryBtn = document.getElementById('mobile-blocker-retry');
+  var html = document.documentElement;
 
   function isRealMobileDevice() {
-    var ua = navigator.userAgent;
-    var isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Silk|Windows Phone|Mobile|Tablet/i.test(ua);
+    var ua = navigator.userAgent.toLowerCase();
+    var isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|silk|windows phone|mobile|tablet/.test(ua);
     var hasTouchScreen = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
     var isNarrowScreen = window.innerWidth < 1024;
     var isSmallHeight = window.innerHeight < 700;
@@ -14,21 +15,34 @@
 
   function check() {
     if (isRealMobileDevice()) {
-      document.documentElement.classList.add('mobile-detected');
+      html.classList.add('mobile-detected');
       if (overlay) overlay.style.display = 'flex';
     } else {
-      document.documentElement.classList.remove('mobile-detected');
+      html.classList.remove('mobile-detected');
       if (overlay) overlay.style.display = 'none';
     }
   }
 
-  // Initial check
-  check();
+  // Initial check after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', check);
+  } else {
+    check();
+  }
 
-  // Retry button
+  // Retry button with feedback
   if (retryBtn) {
     retryBtn.addEventListener('click', function() {
-      check();
+      retryBtn.textContent = '⟳ Checking...';
+      retryBtn.style.opacity = '0.7';
+      retryBtn.style.pointerEvents = 'none';
+
+      setTimeout(function() {
+        check();
+        retryBtn.textContent = '✓ I\'ve Enabled It - Check Again';
+        retryBtn.style.opacity = '1';
+        retryBtn.style.pointerEvents = 'auto';
+      }, 500);
     });
   }
 
@@ -41,6 +55,6 @@
 
   // Check on orientation change
   window.addEventListener('orientationchange', function() {
-    setTimeout(check, 100);
+    setTimeout(check, 500);
   });
 })();
