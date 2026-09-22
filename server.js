@@ -24,7 +24,9 @@ function getSeedData() {
   const now = new Date().toUTCString();
   return {
     LastUpdated: now,
+    SelectedTemplate: "amber-dark",
     Profile: {
+
       Name: "Abhishek Maiti",
       Initials: "AM",
       Title: "Enablon Consultant · Cognizant",

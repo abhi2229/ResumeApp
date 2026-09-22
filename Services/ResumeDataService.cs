@@ -69,7 +69,9 @@ namespace ResumeApp.Services
             return new ResumeViewModel
             {
                 LastUpdated = DateTime.UtcNow.ToString("dd MMM yyyy, hh:mm tt 'UTC'"),
+                SelectedTemplate = "amber-dark",
                 Profile = new Profile
+
                 {
                     Name = "Abhishek Maiti",
                     Initials = "AM",

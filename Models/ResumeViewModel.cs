@@ -3,6 +3,7 @@ namespace ResumeApp.Models
     public class ResumeViewModel
     {
         public string LastUpdated { get; set; } = string.Empty;
+        public string SelectedTemplate { get; set; } = "amber-dark";
         public Profile Profile { get; set; } = new();
         public List<Experience> Experiences { get; set; } = new();
         public List<SkillGroup> SkillGroups { get; set; } = new();
@@ -10,6 +11,7 @@ namespace ResumeApp.Models
         public List<Education> Educations { get; set; } = new();
         public List<Certification> Certifications { get; set; } = new();
     }
+
 
     public class Profile
     {

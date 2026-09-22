@@ -6,7 +6,7 @@
   'use strict';
 
   // Global Resume Data State
-  window.resumeState = window.resumeState || null;
+  window.resumeState = window.resumeState || {};
   let isAdminLoggedIn = false;
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -26,6 +26,12 @@
       console.warn('Could not check admin status:', err);
     }
   }
+
+  // Template Switching Handler
+  window.switchTemplateTheme = function (templateName) {
+    document.documentElement.setAttribute('data-template', templateName);
+    window.resumeState.SelectedTemplate = templateName;
+  };
 
   // Set up hidden access triggers
   function initAdminTriggers() {
@@ -158,6 +164,7 @@
   // Extract model data from DOM
   function collectResumeModelFromDOM() {
     const state = window.resumeState || {};
+    state.SelectedTemplate = document.documentElement.getAttribute('data-template') || 'amber-dark';
 
     // 1. Profile
     state.Profile = state.Profile || {};
@@ -232,11 +239,11 @@
     projNodes.forEach((pNode, pIdx) => {
       const title = getDOMTextIn(pNode, '[data-proj="Title"]');
       const desc = getDOMTextIn(pNode, '[data-proj="Description"]');
-      const techPills = pNode.querySelectorAll('.tech-pill');
+      const techPills = pNode.querySelectorAll('.proj-tag, .tech-pill');
       const techs = [];
       techPills.forEach(tPill => {
         const t = tPill.innerText.trim();
-        if (t) techs.push(t);
+        if (t && t !== '+ TECH') techs.push(t);
       });
 
       if (title) {
@@ -323,7 +330,7 @@
         if (lastUpdatedEl && data.lastUpdated) {
           lastUpdatedEl.innerText = data.lastUpdated;
         }
-        alert('✅ Resume updated successfully! All changes have been saved.');
+        alert('✅ Resume updated successfully! All changes & template settings saved.');
       } else {
         alert('❌ Save failed: ' + (data.message || 'Unknown error'));
       }
@@ -341,11 +348,11 @@
      DYNAMIC ACTION METHODS (ADD / DELETE / REORDER)
      ═══════════════════════════════════════════════════════════════════════════ */
 
-  // Reordering helpers
   window.moveItemUp = function (button) {
     const item = button.closest('.exp-entry, .proj-card, .edu-item, .cert-item, .skill-bar-item, .s-section[data-skill-group]');
     if (item && item.previousElementSibling) {
       item.parentNode.insertBefore(item, item.previousElementSibling);
+      reindexProjects();
     }
   };
 
@@ -353,14 +360,76 @@
     const item = button.closest('.exp-entry, .proj-card, .edu-item, .cert-item, .skill-bar-item, .s-section[data-skill-group]');
     if (item && item.nextElementSibling) {
       item.parentNode.insertBefore(item.nextElementSibling, item);
+      reindexProjects();
     }
   };
 
   window.deleteItem = function (button) {
     if (confirm('Are you sure you want to delete this item?')) {
       const item = button.closest('.exp-entry, .proj-card, .edu-item, .cert-item, .skill-bar-item, .exp-bullet-item, .s-section[data-skill-group]');
-      if (item) item.remove();
+      if (item) {
+        item.remove();
+        reindexProjects();
+      }
     }
+  };
+
+  function reindexProjects() {
+    const projCards = document.querySelectorAll('.proj-card');
+    projCards.forEach((card, idx) => {
+      const indexSpan = card.querySelector('.proj-index span');
+      if (indexSpan) {
+        const num = (idx + 1).toString().padStart(2, '0');
+        indexSpan.innerText = num;
+      }
+    });
+  }
+
+  // Add Project with proper grid layout (proj-index + proj-body)
+  window.addNewProject = function () {
+    const container = document.getElementById('projects-container');
+    if (!container) return;
+
+    const currentCount = container.querySelectorAll('.proj-card').length + 1;
+    const numStr = currentCount.toString().padStart(2, '0');
+
+    const newProj = document.createElement('div');
+    newProj.className = 'proj-card';
+    newProj.dataset.id = 'proj_' + Date.now();
+    newProj.innerHTML = `
+      <div class="proj-index">
+        <span>${numStr}</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-title" data-editable="true" data-proj="Title">New Project Title</div>
+        <div class="proj-desc" data-editable="true" data-proj="Description">Highlight project features, business value, and technical implementation.</div>
+        <div class="proj-tags">
+          <span class="proj-tag" data-editable="true">C#</span>
+          <span class="proj-tag" data-editable="true">ASP.NET</span>
+          <button class="btn-icon-action edit-controls" onclick="addTechToProj(this)">+ Tech</button>
+        </div>
+        <div class="edit-controls">
+          <button class="btn-icon-action" onclick="moveItemUp(this)">▲ Move Up</button>
+          <button class="btn-icon-action" onclick="moveItemDown(this)">▼ Move Down</button>
+          <button class="btn-icon-action delete" onclick="deleteItem(this)">🗑 Delete Project</button>
+        </div>
+      </div>
+    `;
+
+    container.appendChild(newProj);
+    makeElementsEditable();
+    reindexProjects();
+    newProj.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  window.addTechToProj = function (button) {
+    const techContainer = button.closest('.proj-tags');
+    const newSpan = document.createElement('span');
+    newSpan.className = 'proj-tag';
+    newSpan.setAttribute('data-editable', 'true');
+    newSpan.innerText = 'NewTech';
+    techContainer.insertBefore(newSpan, button);
+    makeElementsEditable();
   };
 
   // Add Experience Entry
@@ -388,7 +457,7 @@
           </div>
         </li>
       </ul>
-      <button class="btn-icon-action" onclick="addBulletToExp(this)" style="margin-top:6px;">+ Add Bullet</button>
+      <button class="btn-icon-action btn-add-section" onclick="addBulletToExp(this)">+ Add Bullet</button>
       <div class="edit-controls">
         <button class="btn-icon-action" onclick="moveItemUp(this)">▲ Move Up</button>
         <button class="btn-icon-action" onclick="moveItemDown(this)">▼ Move Down</button>
@@ -419,44 +488,6 @@
     makeElementsEditable();
   };
 
-  // Add Project
-  window.addNewProject = function () {
-    const container = document.getElementById('projects-container');
-    if (!container) return;
-
-    const newProj = document.createElement('div');
-    newProj.className = 'proj-card';
-    newProj.dataset.id = 'proj_' + Date.now();
-    newProj.innerHTML = `
-      <div class="proj-title" data-editable="true" data-proj="Title">New Project Title</div>
-      <div class="proj-desc" data-editable="true" data-proj="Description">Project description highlighting key architectural choices and business value.</div>
-      <div class="proj-techs">
-        <span class="tech-pill" data-editable="true">C#</span>
-        <span class="tech-pill" data-editable="true">ASP.NET</span>
-        <button class="btn-icon-action" onclick="addTechToProj(this)">+ Add Tech</button>
-      </div>
-      <div class="edit-controls">
-        <button class="btn-icon-action" onclick="moveItemUp(this)">▲ Move Up</button>
-        <button class="btn-icon-action" onclick="moveItemDown(this)">▼ Move Down</button>
-        <button class="btn-icon-action delete" onclick="deleteItem(this)">🗑 Delete Project</button>
-      </div>
-    `;
-
-    container.appendChild(newProj);
-    makeElementsEditable();
-    newProj.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  window.addTechToProj = function (button) {
-    const techContainer = button.closest('.proj-techs');
-    const newSpan = document.createElement('span');
-    newSpan.className = 'tech-pill';
-    newSpan.setAttribute('data-editable', 'true');
-    newSpan.innerText = 'NewTech';
-    techContainer.insertBefore(newSpan, button);
-    makeElementsEditable();
-  };
-
   // Add Education
   window.addNewEducation = function () {
     const container = document.getElementById('education-container');
@@ -468,7 +499,7 @@
     newEdu.dataset.id = 'edu_' + Date.now();
     newEdu.innerHTML = `
       <div style="color:var(--text);font-size:0.7rem;margin-bottom:0.1rem;" data-editable="true" data-edu="Degree">New Degree / Qualification</div>
-      <div style="color:var(--text-3)" data-editable="true" data-edu="Institution">Institution Name · <span data-edu="Year">2023–2025</span></div>
+      <div style="color:var(--text-3);font-size:0.65rem;" data-editable="true" data-edu="Institution">Institution Name · <span data-edu="Year">2023–2025</span></div>
       <div class="edit-controls">
         <button class="btn-icon-action" onclick="moveItemUp(this)">▲ Move Up</button>
         <button class="btn-icon-action" onclick="moveItemDown(this)">▼ Move Down</button>

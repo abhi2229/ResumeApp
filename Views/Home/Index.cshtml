@@ -5,9 +5,17 @@
     var nameParts = (Model.Profile?.Name ?? "Abhishek Maiti").Split(' ');
     var firstName = nameParts[0];
     var lastName = nameParts.Length > 1 ? string.Join(" ", nameParts.Skip(1)) : "";
+    var currentTemplate = string.IsNullOrEmpty(Model.SelectedTemplate) ? "amber-dark" : Model.SelectedTemplate;
 }
 
+<script>
+  (function() {
+    document.documentElement.setAttribute('data-template', '@currentTemplate');
+  })();
+</script>
+
 <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/templates.css" asp-append-version="true" />
 
 <style media="print">
   @@page {
@@ -27,14 +35,22 @@
 <div id="admin-bar" class="admin-bar" style="display: none;">
   <div class="admin-bar-info">
     <span class="admin-badge">⚡ Admin Mode Active</span>
-    <span>Editable Mode Enabled</span>
+    <div style="display:flex; align-items:center; gap:6px;">
+      <label style="font-size:0.78rem; opacity:0.8;">Template:</label>
+      <select id="admin-template-select" class="admin-form-input" style="padding:4px 8px; font-size:0.8rem; width:auto; background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2);" onchange="switchTemplateTheme(this.value)">
+        <option value="amber-dark" selected="@(currentTemplate == "amber-dark")">1. Signature Amber (Dark)</option>
+        <option value="executive-slate" selected="@(currentTemplate == "executive-slate")">2. Executive Slate (Corporate)</option>
+        <option value="glassmorphism-neo" selected="@(currentTemplate == "glassmorphism-neo")">3. Glassmorphism Neo (Tech)</option>
+        <option value="classic-editorial" selected="@(currentTemplate == "classic-editorial")">4. Classic Editorial (Minimal)</option>
+      </select>
+    </div>
   </div>
   <div class="admin-bar-actions">
     <button id="admin-save-btn" class="btn-admin btn-admin-primary" onclick="saveAllResumeData()">
       💾 Save All Changes
     </button>
     <button class="btn-admin btn-admin-secondary" onclick="document.body.classList.toggle('admin-editing')">
-      👁 Toggle Edit Outlines
+      👁 Toggle Outlines
     </button>
     <button class="btn-admin btn-admin-danger" onclick="handleAdminLogout()">
       🔒 Logout
@@ -91,7 +107,7 @@
         <div class="contact-stack">
           <a class="c-link" href="@Model.Profile.LinkedIn" target="_blank" data-profile="LinkedIn">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-            <span data-editable="true">LinkedIn Profile</span>
+            <span>LinkedIn Profile</span>
           </a>
           <a class="c-link" href="mailto:@Model.Profile.Email">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -249,30 +265,37 @@
       <button class="btn-add-section" onclick="addNewExperience()">+ Add New Work Experience</button>
     </section>
 
-    <!-- PROJECTS -->
+    <!-- PROJECTS (PROPER GRID LAYOUT) -->
     <section class="projects-section fade-up" id="projects" style="margin-top:2.5rem;">
       <div class="sec-head">
         <span class="sec-title">Key Projects</span>
         <div class="sec-line"></div>
       </div>
 
-      <div id="projects-container">
+      <div id="projects-container" class="projects-list">
+        @{ int projIndexCounter = 0; }
         @foreach (var proj in Model.Projects)
         {
+          projIndexCounter++;
           <div class="proj-card" data-id="@proj.Id">
-            <div class="proj-title" data-editable="true" data-proj="Title">@proj.Title</div>
-            <div class="proj-desc" data-editable="true" data-proj="Description">@proj.Description</div>
-            <div class="proj-techs">
-              @foreach (var tech in proj.Technologies)
-              {
-                <span class="tech-pill" data-editable="true">@tech</span>
-              }
-              <button class="btn-icon-action edit-controls" onclick="addTechToProj(this)">+ Tech</button>
+            <div class="proj-index">
+              <span>@(projIndexCounter.ToString("D2"))</span>
             </div>
-            <div class="edit-controls">
-              <button class="btn-icon-action" onclick="moveItemUp(this)">▲ Move Up</button>
-              <button class="btn-icon-action" onclick="moveItemDown(this)">▼ Move Down</button>
-              <button class="btn-icon-action delete" onclick="deleteItem(this)">🗑 Delete Project</button>
+            <div class="proj-body">
+              <div class="proj-title" data-editable="true" data-proj="Title">@proj.Title</div>
+              <div class="proj-desc" data-editable="true" data-proj="Description">@proj.Description</div>
+              <div class="proj-tags">
+                @foreach (var tech in proj.Technologies)
+                {
+                  <span class="proj-tag" data-editable="true">@tech</span>
+                }
+                <button class="btn-icon-action edit-controls" onclick="addTechToProj(this)" style="display:none;">+ Tech</button>
+              </div>
+              <div class="edit-controls">
+                <button class="btn-icon-action" onclick="moveItemUp(this)">▲ Move Up</button>
+                <button class="btn-icon-action" onclick="moveItemDown(this)">▼ Move Down</button>
+                <button class="btn-icon-action delete" onclick="deleteItem(this)">🗑 Delete Project</button>
+              </div>
             </div>
           </div>
         }
