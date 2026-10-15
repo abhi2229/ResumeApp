@@ -700,6 +700,41 @@ nav:hover::after { width: calc(100% - 6rem); }
 .main-footer a { color: var(--amber); text-decoration: none; }
 .main-footer a:hover { text-decoration: underline; }
 
+.footer-divider {
+  width: 2rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line) 0%, transparent 100%);
+  margin: 0.6rem 0;
+}
+
+.last-updated {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--text-4);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeIn 1s ease-in-out 0.5s both;
+}
+
+.update-label {
+  color: var(--text-3);
+  font-weight: 600;
+}
+
+.update-date {
+  color: var(--amber);
+  font-weight: 500;
+}
+
+.update-time {
+  color: var(--text-4);
+  font-size: 0.55rem;
+  opacity: 0.8;
+}
+
 /* ─── ENTRY ANIMATIONS ───────────────── */
 .fade-up {
   opacity: 0;

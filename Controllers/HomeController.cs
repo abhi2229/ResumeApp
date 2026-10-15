@@ -1,10 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using ResumeApp.Models;
+using ResumeApp.Services;
 
 namespace ResumeApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IGitInfoService _gitInfoService;
+
+        public HomeController(IGitInfoService gitInfoService)
+        {
+            _gitInfoService = gitInfoService;
+        }
+
         public IActionResult Index()
         {
             // Resume data lives 
@@ -173,7 +181,8 @@ namespace ResumeApp.Controllers
                         Year   = "2022",
                         CertificateUrl = "https://www.coursera.org/account/accomplishments/certificate/8FQ55JT76TVH" 
                     }
-                }
+                },
+                LastUpdated = _gitInfoService.GetLastCommitDate()
             };
 
             return View(model);

@@ -8,6 +8,7 @@ namespace ResumeApp.Models
         public List<Project> Projects { get; set; } = new();
         public List<Education> Educations { get; set; } = new();
         public List<Certification> Certifications { get; set; } = new();
+        public DateTime LastUpdated { get; set; } = DateTime.Now;
     }
 
     public class Profile
