@@ -6,11 +6,11 @@ namespace ResumeApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IGitInfoService _gitInfoService;
+        private readonly ResumeDataService _dataService;
 
-        public HomeController(IGitInfoService gitInfoService)
+        public HomeController(ResumeDataService dataService)
         {
-            _gitInfoService = gitInfoService;
+            _dataService = dataService;
         }
 
         public IActionResult Index()
@@ -29,57 +29,6 @@ namespace ResumeApp.Controllers
                     Location    = "Hyderabad, Telangana, India",
                     LinkedIn    = "https://www.linkedin.com/in/abhishek-maiti-328614181"
                 },
-
-                Experiences = new List<Experience>
-                {
-                    new Experience
-                    {
-                        Company        = "Cognizant",
-                        EmploymentType = "Full-time · HYD",
-                        Role           = "Programmer Analyst",
-                        Period         = "Sep 2025 – Present",
-                        Bullets        = new List<string>
-                        {
-                            "Providing Enablon platform support and configuration for pharmaceutical clients, focusing on the Metrics and GXP modules.",
-                            "Analysing and resolving production issues, performing root-cause analysis and coordinating fixes with functional teams.",
-                            "Building and validating NABSIC rules to address complex business requirements and ensure data accuracy.",
-                            "Created customized KPIs using Business Analyzer Templates (BAT) with advanced aggregation logic (SUM, AVG) and consolidation algorithms.",
-                            "Resolved consolidation issues involving monthly vs quarterly calculation variance and NULL vs 0 value handling in data aggregation.",
-                            "Supporting UAT cycles by collaborating closely with business stakeholders to verify configurations meet requirements.",
-                            "Working with Shared Functions, Incident Management and Risk Management modules in Enablon.",
-                            "Following SDLC best practices throughout the development and support lifecycle."
-                        }
-                    },
-                    new Experience
-                    {
-                        Company        = "Cognizant",
-                        EmploymentType = "Full-time · HYD",
-                        Role           = "Programmer Analyst Trainee",
-                        Period         = "Sep 2024 – Sep 2025",
-                        Bullets        = new List<string>
-                        {
-                            "Configured and maintained Enablon Metrics module for pharmaceutical domain clients.",
-                            "Assisted in logic building for NABSIC rules and supported production issue triage.",
-                            "Collaborated with functional teams on platform configuration and business requirement mapping.",
-                            "Gained working knowledge of Enablon's Incident Management and Risk Management modules.",
-                            "Worked on documentation and maintained documentation in the PROTON Life Cycle Management tool."
-                        }
-                    },
-                    new Experience
-                    {
-                        Company        = "Cognizant",
-                        EmploymentType = "Internship · HYD",
-                        Role           = "Programmer Analyst Trainee",
-                        Period         = "Dec 2023 – Apr 2024",
-                        Bullets        = new List<string>
-                        {
-                            "Trained in .NET Framework fundamentals and applied skills in hands-on development tasks.",
-                            "Worked with JavaScript and web technologies as part of the internship curriculum.",
-                            "Gained exposure to enterprise software development practices and Agile workflows."
-                        }
-                    }
-                },
-
                 SkillGroups = new List<SkillGroup>
                 {
                     new SkillGroup
@@ -133,7 +82,6 @@ namespace ResumeApp.Controllers
                         }
                     }
                 },
-
                 Projects = new List<Project>
                 {
                     new Project
@@ -155,9 +103,6 @@ namespace ResumeApp.Controllers
                         Technologies = new List<string> { ".NET Framework", "JavaScript", "ASP.NET", "HTML / CSS" }
                     }
                 },
-
-        
-
                 Certifications = new List<Certification>
                 {
                     new Certification
@@ -167,13 +112,6 @@ namespace ResumeApp.Controllers
                         Year   = "2022",
                         CertificateUrl = "https://archive.nptel.ac.in/noc/Ecertificate/?q=NPTEL22CS51S33750500NPTEL2201053954"
                     },
-                  /*   new Certification
-                    {
-                        Name   = "Problem solving using c",
-                        Issuer = "NPTEL",
-                        Year   = "2022",
-                        CertificateUrl = "https://drive.google.com/file/d/13s5P4ggvkqjTVVde4Ck4MZ6CVLXgKf8l/view"
-                    },*/
                     new Certification
                     {
                         Name   = "Web Development with HTML,CSS and JS",
@@ -181,8 +119,7 @@ namespace ResumeApp.Controllers
                         Year   = "2022",
                         CertificateUrl = "https://www.coursera.org/account/accomplishments/certificate/8FQ55JT76TVH" 
                     }
-                },
-                LastUpdated = _gitInfoService.GetLastCommitDate()
+                }
             };
 
             return View(model);

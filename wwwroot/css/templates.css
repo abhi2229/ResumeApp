@@ -1,0 +1,144 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MULTI-TEMPLATE SYSTEM ENGINE FOR RESUMEAPP
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 1. AMBER DARK (Signature Dark Amber & Garamond) */
+[data-template="amber-dark"] {
+  --bg:          #0d0d0d;
+  --bg-2:        #141414;
+  --bg-3:        #1c1c1c;
+  --bg-4:        #242424;
+  --line:        #2a2a2a;
+  --line-2:      #363636;
+  --text:        #e8e4dc;
+  --text-2:      #a09890;
+  --text-3:      #5c5850;
+  --amber:       #d4954a;
+  --amber-dim:   #7a4e22;
+  --amber-glow:  rgba(212,149,74,0.08);
+  --amber-glow2: rgba(212,149,74,0.15);
+  --serif:       'Cormorant Garamond', Georgia, serif;
+  --sans:        'Outfit', system-ui, sans-serif;
+  --mono:        'JetBrains Mono', monospace;
+}
+
+/* 2. EXECUTIVE SLATE (Clean Corporate & Navy-Blue) */
+[data-template="executive-slate"] {
+  --bg:          #0f172a;
+  --bg-2:        #1e293b;
+  --bg-3:        #334155;
+  --bg-4:        #475569;
+  --line:        #334155;
+  --line-2:      #475569;
+  --text:        #f8fafc;
+  --text-2:      #cbd5e1;
+  --text-3:      #94a3b8;
+  --amber:       #38bdf8;
+  --amber-dim:   #0284c7;
+  --amber-glow:  rgba(56,189,248,0.1);
+  --amber-glow2: rgba(56,189,248,0.2);
+  --serif:       'Outfit', sans-serif;
+  --sans:        'Outfit', sans-serif;
+  --mono:        'JetBrains Mono', monospace;
+}
+
+[data-template="executive-slate"] .proj-card {
+  border-radius: 12px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-template="executive-slate"] .exp-entry {
+  border-radius: 12px;
+  background: rgba(30, 41, 59, 0.4);
+}
+
+[data-template="executive-slate"] .role-badge {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #fff;
+  border-radius: 20px;
+  padding: 4px 12px;
+  display: inline-block;
+}
+
+/* 3. GLASSMORPHISM NEO (Tech Emerald/Indigo Neon) */
+[data-template="glassmorphism-neo"] {
+  --bg:          #0a0f1d;
+  --bg-2:        #111a2e;
+  --bg-3:        #1e2d4a;
+  --bg-4:        #2b3f66;
+  --line:        #1e2d4a;
+  --line-2:      #2b3f66;
+  --text:        #f1f5f9;
+  --text-2:      #94a3b8;
+  --text-3:      #64748b;
+  --amber:       #10b981;
+  --amber-dim:   #047857;
+  --amber-glow:  rgba(16,185,129,0.12);
+  --amber-glow2: rgba(16,185,129,0.22);
+  --serif:       'Outfit', sans-serif;
+  --sans:        'Outfit', sans-serif;
+  --mono:        'JetBrains Mono', monospace;
+}
+
+[data-template="glassmorphism-neo"] .shell {
+  background: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+}
+
+[data-template="glassmorphism-neo"] .proj-card,
+[data-template="glassmorphism-neo"] .exp-entry {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(17, 26, 46, 0.7);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+}
+
+[data-template="glassmorphism-neo"] .proj-card:hover,
+[data-template="glassmorphism-neo"] .exp-entry:hover {
+  border-color: #10b981;
+  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.2);
+}
+
+[data-template="glassmorphism-neo"] .proj-tag {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+  color: #34d399;
+  border-radius: 20px;
+}
+
+/* 4. CLASSIC EDITORIAL (High-Contrast Editorial Minimalist) */
+[data-template="classic-editorial"] {
+  --bg:          #121212;
+  --bg-2:        #1a1a1a;
+  --bg-3:        #262626;
+  --bg-4:        #333333;
+  --line:        #333333;
+  --line-2:      #444444;
+  --text:        #fafafa;
+  --text-2:      #a3a3a3;
+  --text-3:      #737373;
+  --amber:       #e5e5e5;
+  --amber-dim:   #737373;
+  --amber-glow:  rgba(255,255,255,0.05);
+  --amber-glow2: rgba(255,255,255,0.1);
+  --serif:       'Cormorant Garamond', Georgia, serif;
+  --sans:        'Outfit', sans-serif;
+  --mono:        'JetBrains Mono', monospace;
+}
+
+[data-template="classic-editorial"] .sec-title {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  font-family: var(--serif);
+}
+
+[data-template="classic-editorial"] .proj-tag {
+  border-radius: 0px;
+  background: transparent;
+  border-color: var(--line-2);
+  color: #e5e5e5;
+}
