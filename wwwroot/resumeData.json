@@ -1,65 +1,67 @@
 {
-  "LastUpdated": "Tue, 22 Sep 2026 14:16:13 GMT",
+  "LastUpdated": "21 Oct 2026, 01:07 PM UTC",
   "SelectedTemplate": "amber-dark",
   "Profile": {
     "Name": "Abhishek Maiti",
-    "Initials": "AM",
-    "Title": "Enablon Consultant · Cognizant",
-    "Bio": "Enablon Consultant specializing in Metrics and NABSIC logic, with hands-on experience supporting pharmaceutical clients in production environments.\nFocused on resolving complex aggregation and consolidation issues, improving data accuracy, and delivering reliable KPI reporting.\nCurrently expanding into Azure and Angular to build end-to-end scalable solutions.",
+    "Title": "ENABLON CONSULTANT \u00B7 COGNIZANT",
+    "Bio": "Enablon Consultant specializing in Metrics and NABSIC logic, with hands-on experience supporting pharmaceutical clients in production environments. Focused on resolving complex aggregation and consolidation issues, improving data accuracy, and delivering reliable KPI reporting. Currently expanding into Azure and Angular to build end-to-end scalable solutions.",
     "Email": "maity2229@gmail.com",
-    "Phone": "+91 7602968387",
+    "Phone": "\u002B91 7602968387",
     "Location": "Hyderabad, Telangana, India",
-    "LinkedIn": "https://www.linkedin.com/in/abhishek-maiti-328614181"
+    "LinkedIn": "",
+    "PhotoUrl": "/image/profile-upload-3717b5922a0743d68d0bf303b7623268.jpg",
+    "Initials": "",
+    "NativeLocation": ""
   },
   "Experiences": [
     {
       "Id": "exp_1",
-      "Company": "Cognizant",
-      "EmploymentType": "Full-time · HYD",
+      "Company": "COGNIZANT",
+      "EmploymentType": "Full-time \u00B7 HYD",
       "Role": "Programmer Analyst",
-      "Period": "Sep 2025 – Present",
+      "Period": "Sep 2025 \u2013 Present",
       "Bullets": [
-        "Providing Enablon platform support and configuration for pharmaceutical clients, focusing on the Metrics and GXP modules.",
-        "Analysing and resolving production issues, performing root-cause analysis and coordinating fixes with functional teams.",
-        "Building and validating NABSIC rules to address complex business requirements and ensure data accuracy.",
-        "Created customized KPIs using Business Analyzer Templates (BAT) with advanced aggregation logic (SUM, AVG) and consolidation algorithms.",
-        "Resolved consolidation issues involving monthly vs quarterly calculation variance and NULL vs 0 value handling in data aggregation.",
-        "Supporting UAT cycles by collaborating closely with business stakeholders to verify configurations meet requirements.",
-        "Working with Shared Functions, Incident Management and Risk Management modules in Enablon.",
-        "Following SDLC best practices throughout the development and support lifecycle."
+        "Providing Enablon platform support and configuration for pharmaceutical clients, focusing on the Metrics and GXP modules. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Analysing and resolving production issues, performing root-cause analysis and coordinating fixes with functional teams. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Building and validating NABSIC rules to address complex business requirements and ensure data accuracy. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Created customized KPIs using Business Analyzer Templates (BAT) with advanced aggregation logic (SUM, AVG) and consolidation algorithms. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Resolved consolidation issues involving monthly vs quarterly calculation variance and NULL vs 0 value handling in data aggregation. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Supporting UAT cycles by collaborating closely with business stakeholders to verify configurations meet requirements. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Working with Shared Functions, Incident Management and Risk Management modules in Enablon. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Following SDLC best practices throughout the development and support lifecycle. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet"
       ]
     },
     {
       "Id": "exp_2",
-      "Company": "Cognizant",
-      "EmploymentType": "Full-time · HYD",
+      "Company": "COGNIZANT",
+      "EmploymentType": "Full-time \u00B7 HYD",
       "Role": "Programmer Analyst Trainee",
-      "Period": "Sep 2024 – Sep 2025",
+      "Period": "Sep 2024 \u2013 Sep 2025",
       "Bullets": [
-        "Configured and maintained Enablon Metrics module for pharmaceutical domain clients.",
-        "Assisted in logic building for NABSIC rules and supported production issue triage.",
-        "Collaborated with functional teams on platform configuration and business requirement mapping.",
-        "Gained working knowledge of Enablon's Incident Management and Risk Management modules.",
-        "Worked on documentation and maintained documentation in the PROTON Life Cycle Management tool."
+        "Configured and maintained Enablon Metrics module for pharmaceutical domain clients. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Assisted in logic building for NABSIC rules and supported production issue triage. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Collaborated with functional teams on platform configuration and business requirement mapping. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Gained working knowledge of Enablon\u0027s Incident Management and Risk Management modules. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Worked on documentation and maintained documentation in the PROTON Life Cycle Management tool. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet"
       ]
     },
     {
       "Id": "exp_3",
-      "Company": "Cognizant",
-      "EmploymentType": "Internship · HYD",
+      "Company": "COGNIZANT",
+      "EmploymentType": "Internship \u00B7 HYD",
       "Role": "Programmer Analyst Trainee",
-      "Period": "Dec 2023 – Apr 2024",
+      "Period": "Dec 2023 \u2013 Apr 2024",
       "Bullets": [
-        "Trained in .NET Framework fundamentals and applied skills in hands-on development tasks.",
-        "Worked with JavaScript and web technologies as part of the internship curriculum.",
-        "Gained exposure to enterprise software development practices and Agile workflows."
+        "Trained in .NET Framework fundamentals and applied skills in hands-on development tasks. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Worked with JavaScript and web technologies as part of the internship curriculum. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet",
+        "Gained exposure to enterprise software development practices and Agile workflows. \uD83D\uDDD1 Delete Bullet\n\uD83D\uDDD1 Delete Bullet"
       ]
     }
   ],
   "SkillGroups": [
     {
       "Id": "sg_1",
-      "Category": "Enablon Platform",
+      "Category": "ENABLON PLATFORM",
       "Skills": [
         {
           "Id": "s_1",
@@ -113,7 +115,7 @@
     },
     {
       "Id": "sg_2",
-      "Category": "Development",
+      "Category": "DEVELOPMENT",
       "Skills": [
         {
           "Id": "s_9",
@@ -161,7 +163,7 @@
     },
     {
       "Id": "sg_3",
-      "Category": "Upskilling",
+      "Category": "UPSKILLING",
       "Skills": [
         {
           "Id": "s_16",
@@ -179,7 +181,7 @@
     },
     {
       "Id": "sg_4",
-      "Category": "Domain & Process",
+      "Category": "DOMAIN \u0026 PROCESS",
       "Skills": [
         {
           "Id": "s_18",
@@ -220,10 +222,10 @@
       "Title": "Enablon Metrics Configuration",
       "Description": "End-to-end configuration and support of the Metrics module for two pharmaceutical clients, including NABSIC rule logic building, production issue resolution, and UAT collaboration.",
       "Technologies": [
-        "Enablon",
+        "ENABLON",
         "NABSIC",
-        "Metrics Module",
-        "Proton"
+        "METRICS MODULE",
+        "PROTON"
       ]
     },
     {
@@ -231,9 +233,9 @@
       "Title": "Production Issue Analysis",
       "Description": "Systematic root-cause analysis and resolution of production issues in the Enablon platform, coordinating with functional and business teams to minimise downtime.",
       "Technologies": [
-        "Enablon",
-        "Incident Management",
-        "Risk Management"
+        "ENABLON",
+        "INCIDENT MANAGEMENT",
+        "RISK MANAGEMENT"
       ]
     },
     {
@@ -241,8 +243,8 @@
       "Title": ".NET Internship Project",
       "Description": "Developed web application modules during internship using .NET Framework and JavaScript, applying enterprise development best practices.",
       "Technologies": [
-        ".NET Framework",
-        "JavaScript",
+        ".NET FRAMEWORK",
+        "JAVASCRIPT",
         "ASP.NET",
         "HTML / CSS"
       ]
@@ -252,28 +254,35 @@
     {
       "Id": "edu_1",
       "Degree": "MCA",
-      "Institution": "IEM",
-      "Year": "2021–2023"
+      "Institution": "IEM \u00B7 2021\u20132023 \u00B7 2021\u20132023",
+      "Year": "2021\u20132023"
     },
     {
       "Id": "edu_2",
       "Degree": "BSc Computer Science",
-      "Institution": "Midnapore College",
-      "Year": "2018–2021"
+      "Institution": "Midnapore College \u00B7 2018\u20132021 \u00B7 2018\u20132021",
+      "Year": "2018\u20132021"
     }
   ],
   "Certifications": [
     {
+      "Id": "cert_1792586865355",
+      "Name": "Deploy an Agent with Agent Development kit(ADK)",
+      "Issuer": "Google.2026 \u00B7",
+      "Year": "",
+      "CertificateUrl": ""
+    },
+    {
       "Id": "cert_1",
       "Name": "Database Management System",
-      "Issuer": "NPTEL",
+      "Issuer": "NPTEL \u00B7 2022 \u00B7 2022",
       "Year": "2022",
       "CertificateUrl": "https://archive.nptel.ac.in/noc/Ecertificate/?q=NPTEL22CS51S33750500NPTEL2201053954"
     },
     {
       "Id": "cert_2",
       "Name": "Web Development with HTML,CSS and JS",
-      "Issuer": "Coursera",
+      "Issuer": "Coursera \u00B7 2022 \u00B7 2022",
       "Year": "2022",
       "CertificateUrl": "https://www.coursera.org/account/accomplishments/certificate/8FQ55JT76TVH"
     }

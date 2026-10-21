@@ -142,3 +142,233 @@
   border-color: var(--line-2);
   color: #e5e5e5;
 }
+
+/* 5. OCEAN LIGHT — bright portfolio with crisp blue accents */
+[data-template="ocean-light"] {
+  --bg: #f4f7fb;
+  --bg-2: #eaf0f8;
+  --bg-3: #dce7f4;
+  --bg-4: #cfdded;
+  --line: #d4dfeb;
+  --line-2: #b8cadd;
+  --text: #14243a;
+  --text-2: #425873;
+  --text-3: #71839a;
+  --amber: #1769aa;
+  --amber-dim: #8db5d8;
+  --amber-glow: rgba(23, 105, 170, 0.07);
+  --amber-glow2: rgba(23, 105, 170, 0.14);
+  --serif: 'Outfit', sans-serif;
+  --sans: 'Outfit', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  color-scheme: light;
+}
+
+[data-template="ocean-light"] body,
+[data-template="ocean-light"] .main-content,
+[data-template="ocean-light"] .skill-cell {
+  background: var(--bg);
+}
+
+[data-template="ocean-light"] .sidebar {
+  background: #eaf0f8;
+  border-color: #cfdae8;
+}
+
+[data-template="ocean-light"] .photo-block {
+  aspect-ratio: 4 / 3;
+  border-radius: 0 0 28px 0;
+}
+
+[data-template="ocean-light"] .photo-overlay {
+  background: linear-gradient(to bottom, transparent 35%, rgba(12, 39, 68, 0.92) 100%);
+}
+
+[data-template="ocean-light"] .exp-entry,
+[data-template="ocean-light"] .proj-card {
+  background: #fff;
+  border: 1px solid #d7e2ee;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(29, 63, 96, 0.06);
+}
+
+[data-template="ocean-light"] .role-badge {
+  display: inline-block;
+  padding: 5px 11px;
+  color: #fff;
+  background: #1769aa;
+  border-radius: 999px;
+}
+
+/* 6. EMERALD TERMINAL — technical, grid-backed monochrome */
+[data-template="emerald-terminal"] {
+  --bg: #07110e;
+  --bg-2: #0b1914;
+  --bg-3: #10251c;
+  --bg-4: #183327;
+  --line: #1d3a2d;
+  --line-2: #2d6248;
+  --text: #d5f5df;
+  --text-2: #a2cbb0;
+  --text-3: #6e9a7d;
+  --amber: #54e39a;
+  --amber-dim: #25804e;
+  --amber-glow: rgba(84, 227, 154, 0.08);
+  --amber-glow2: rgba(84, 227, 154, 0.16);
+  --serif: 'JetBrains Mono', monospace;
+  --sans: 'JetBrains Mono', monospace;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+[data-template="emerald-terminal"] .shell {
+  background-image: linear-gradient(rgba(84, 227, 154, 0.025) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(84, 227, 154, 0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+[data-template="emerald-terminal"] .sidebar {
+  background: rgba(5, 15, 11, 0.96);
+  border-right: 1px solid var(--amber-dim);
+}
+
+[data-template="emerald-terminal"] .photo-block {
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--amber-dim);
+  filter: saturate(0.65);
+}
+
+[data-template="emerald-terminal"] .photo-overlay {
+  background: linear-gradient(to bottom, transparent 45%, rgba(5, 15, 11, 0.98) 100%);
+}
+
+[data-template="emerald-terminal"] .headline-block blockquote,
+[data-template="emerald-terminal"] .exp-entry,
+[data-template="emerald-terminal"] .proj-card {
+  font-family: var(--mono);
+  border-radius: 0;
+}
+
+[data-template="emerald-terminal"] .exp-entry,
+[data-template="emerald-terminal"] .proj-card {
+  background: rgba(7, 17, 14, 0.9);
+  border: 1px solid var(--line-2);
+  box-shadow: 4px 4px 0 rgba(37, 128, 78, 0.18);
+}
+
+[data-template="emerald-terminal"] .sec-title::before {
+  content: '> ';
+  color: var(--amber);
+}
+
+/* 7. TERRACOTTA EDITORIAL — warm paper, plum ink, oversized serif */
+[data-template="terracotta-editorial"] {
+  --bg: #f4eee6;
+  --bg-2: #e9dfd3;
+  --bg-3: #dfd0c0;
+  --bg-4: #d2bda9;
+  --line: #d5c4b4;
+  --line-2: #b99d86;
+  --text: #30221e;
+  --text-2: #634d45;
+  --text-3: #8c7469;
+  --amber: #a44832;
+  --amber-dim: #c47f68;
+  --amber-glow: rgba(164, 72, 50, 0.07);
+  --amber-glow2: rgba(164, 72, 50, 0.14);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', sans-serif;
+  --mono: 'Outfit', sans-serif;
+  color-scheme: light;
+}
+
+[data-template="terracotta-editorial"] .sidebar {
+  background: #e9dfd3;
+  border-right: 3px solid var(--amber);
+}
+
+[data-template="terracotta-editorial"] .photo-block {
+  aspect-ratio: 3 / 4;
+  border-radius: 48% 48% 4px 4px;
+  margin: 1.2rem auto 0;
+  width: 88%;
+}
+
+[data-template="terracotta-editorial"] .photo-overlay {
+  background: linear-gradient(to bottom, transparent 50%, rgba(48, 34, 30, 0.88) 100%);
+}
+
+[data-template="terracotta-editorial"] .main-content {
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+[data-template="terracotta-editorial"] .headline-block blockquote {
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  line-height: 1.3;
+  padding-left: 0;
+}
+
+[data-template="terracotta-editorial"] .exp-entry,
+[data-template="terracotta-editorial"] .proj-card {
+  background: rgba(255, 252, 247, 0.72);
+  border: 0;
+  border-top: 1px solid var(--line-2);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* 8. VIOLET GLASS — luminous violet gradient with floating glass cards */
+[data-template="violet-glass"] {
+  --bg: #100d1b;
+  --bg-2: #191329;
+  --bg-3: #241b3a;
+  --bg-4: #33254f;
+  --line: #382b54;
+  --line-2: #60498a;
+  --text: #f4edff;
+  --text-2: #c5b8df;
+  --text-3: #9081ae;
+  --amber: #c084fc;
+  --amber-dim: #8053b5;
+  --amber-glow: rgba(192, 132, 252, 0.1);
+  --amber-glow2: rgba(192, 132, 252, 0.2);
+  --serif: 'Outfit', sans-serif;
+  --sans: 'Outfit', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+[data-template="violet-glass"] .shell {
+  background: radial-gradient(ellipse at 75% 12%, rgba(139, 92, 246, 0.2), transparent 38%),
+              radial-gradient(ellipse at 10% 85%, rgba(192, 132, 252, 0.12), transparent 34%);
+}
+
+[data-template="violet-glass"] .sidebar {
+  background: rgba(25, 19, 41, 0.82);
+  backdrop-filter: blur(18px);
+  border-right: 1px solid rgba(192, 132, 252, 0.25);
+}
+
+[data-template="violet-glass"] .photo-block {
+  aspect-ratio: 1 / 1.12;
+  border-radius: 0 0 45% 45%;
+}
+
+[data-template="violet-glass"] .photo-overlay {
+  background: linear-gradient(to bottom, transparent 42%, #191329 100%);
+}
+
+[data-template="violet-glass"] .exp-entry,
+[data-template="violet-glass"] .proj-card {
+  background: linear-gradient(135deg, rgba(54, 39, 81, 0.72), rgba(24, 19, 39, 0.8));
+  border: 1px solid rgba(192, 132, 252, 0.22);
+  border-radius: 20px;
+  box-shadow: 0 16px 44px rgba(4, 2, 12, 0.28);
+}
+
+[data-template="violet-glass"] .role-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  color: #190d2c;
+  background: linear-gradient(100deg, #c084fc, #f0abfc);
+  border-radius: 999px;
+}

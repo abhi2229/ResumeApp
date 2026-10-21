@@ -4,13 +4,7 @@
   var html = document.documentElement;
 
   function isRealMobileDevice() {
-    var ua = navigator.userAgent.toLowerCase();
-    var isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|silk|windows phone|mobile|tablet/.test(ua);
-    var hasTouchScreen = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
-    var isNarrowScreen = window.innerWidth < 1024;
-    var isSmallHeight = window.innerHeight < 700;
-
-    return isMobileUA && (hasTouchScreen || isNarrowScreen || isSmallHeight);
+    return false;
   }
 
   function check() {

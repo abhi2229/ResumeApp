@@ -6,6 +6,7 @@
     var firstName = nameParts[0];
     var lastName = nameParts.Length > 1 ? string.Join(" ", nameParts.Skip(1)) : "";
     var currentTemplate = string.IsNullOrEmpty(Model.SelectedTemplate) ? "amber-dark" : Model.SelectedTemplate;
+    var profilePhoto = string.IsNullOrWhiteSpace(Model.Profile?.PhotoUrl) ? Url.Content("~/image/Profile.jpeg") : Model.Profile.PhotoUrl;
 }
 
 <script>
@@ -37,15 +38,25 @@
     <span class="admin-badge">⚡ Admin Mode Active</span>
     <div style="display:flex; align-items:center; gap:6px;">
       <label style="font-size:0.78rem; opacity:0.8;">Template:</label>
-      <select id="admin-template-select" class="admin-form-input" style="padding:4px 8px; font-size:0.8rem; width:auto; background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2);" onchange="switchTemplateTheme(this.value)">
+      <select id="admin-template-select" class="admin-form-input admin-template-select" style="padding:4px 8px; font-size:0.8rem; width:auto; border-color:rgba(255,255,255,0.2);" onchange="switchTemplateTheme(this.value)">
         <option value="amber-dark" selected="@(currentTemplate == "amber-dark")">1. Signature Amber (Dark)</option>
         <option value="executive-slate" selected="@(currentTemplate == "executive-slate")">2. Executive Slate (Corporate)</option>
         <option value="glassmorphism-neo" selected="@(currentTemplate == "glassmorphism-neo")">3. Glassmorphism Neo (Tech)</option>
         <option value="classic-editorial" selected="@(currentTemplate == "classic-editorial")">4. Classic Editorial (Minimal)</option>
+        <option value="ocean-light" selected="@(currentTemplate == "ocean-light")">5. Ocean Light (Clean Portfolio)</option>
+        <option value="emerald-terminal" selected="@(currentTemplate == "emerald-terminal")">6. Emerald Terminal (Developer)</option>
+        <option value="terracotta-editorial" selected="@(currentTemplate == "terracotta-editorial")">7. Terracotta Editorial (Warm Serif)</option>
+        <option value="violet-glass" selected="@(currentTemplate == "violet-glass")">8. Violet Glass (Creative)</option>
       </select>
     </div>
   </div>
   <div class="admin-bar-actions">
+    <input id="profile-photo-file" type="file" accept="image/jpeg,image/png,image/webp" hidden onchange="openPhotoCropper(this)" />
+    <button id="change-photo-btn" type="button" class="btn-admin btn-admin-secondary" onclick="document.getElementById('profile-photo-file').click()">
+      📷 Change Photo
+    </button>
+    <span id="photo-draft-status" class="photo-draft-status" hidden>Photo preview only — click Save All Changes to publish</span>
+    <button id="discard-photo-btn" type="button" class="btn-admin btn-admin-secondary" hidden onclick="discardPhotoDraft()">Discard Photo</button>
     <button id="admin-save-btn" class="btn-admin btn-admin-primary" onclick="saveAllResumeData()">
       💾 Save All Changes
     </button>
@@ -56,6 +67,28 @@
       🔒 Logout
     </button>
   </div>
+</div>
+
+<div id="photo-crop-modal" class="photo-crop-overlay" aria-hidden="true">
+  <section class="photo-crop-dialog" role="dialog" aria-modal="true" aria-labelledby="photo-crop-title">
+    <div class="photo-crop-header">
+      <div>
+        <h2 id="photo-crop-title">Crop profile photo</h2>
+        <p>Drag the image to position it, then adjust the zoom.</p>
+      </div>
+      <button type="button" class="photo-crop-close" aria-label="Close" onclick="cancelPhotoCrop()">&times;</button>
+    </div>
+    <div class="photo-crop-stage">
+      <canvas id="photo-crop-canvas" width="360" height="480" aria-label="Photo crop preview"></canvas>
+    </div>
+    <label class="photo-zoom-label" for="photo-zoom">Zoom <span id="photo-zoom-value">1.0×</span></label>
+    <input id="photo-zoom" class="photo-zoom-slider" type="range" min="1" max="3" step="0.01" value="1" />
+    <p class="photo-save-note">This is a local preview. Nothing is uploaded until you click Save All Changes.</p>
+    <div class="photo-crop-actions">
+      <button type="button" class="btn-admin btn-admin-secondary" onclick="cancelPhotoCrop()">Cancel</button>
+      <button type="button" class="btn-admin btn-admin-primary" onclick="applyPhotoCrop()">Use Photo</button>
+    </div>
+  </section>
 </div>
 
 <!-- ══ HIDDEN ADMIN LOGIN MODAL ═════════════════════════════════════════════ -->
@@ -89,7 +122,7 @@
   <aside class="sidebar">
 
     <div class="photo-block">
-      <img src="image\Profile.jpeg" alt="@Model.Profile.Name" />
+      <img src="@profilePhoto" data-photo-url="@profilePhoto" alt="@Model.Profile.Name" />
       <div class="photo-overlay"></div>
       <div class="photo-name">
         <h2>

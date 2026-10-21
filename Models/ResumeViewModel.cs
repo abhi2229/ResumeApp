@@ -22,6 +22,7 @@ namespace ResumeApp.Models
         public string Phone { get; set; } = string.Empty;
         public string Location { get; set; } = string.Empty;
         public string LinkedIn { get; set; } = string.Empty;
+        public string PhotoUrl { get; set; } = "/image/Profile.jpeg";
         public string Initials { get; set; } = string.Empty;
         public string NativeLocation { get; set; } = string.Empty;
     }

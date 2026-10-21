@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-<link rel="stylesheet" href="~/css/mobile.css" asp-append-version="true"/>
 
 <!-- Inline mobile blocker styles - runs immediately -->
 <style>
@@ -175,42 +174,8 @@ html.mobile-detected #mobile-blocker-overlay {
 }
 </style>
 
-<!-- Inline mobile detection - runs BEFORE page renders -->
-<script>
-(function() {
-  function isRealMobileDevice() {
-    var ua = navigator.userAgent.toLowerCase();
-    // Comprehensive mobile detection
-    var isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|silk|windows phone|mobile|tablet/.test(ua);
-    var hasTouchScreen = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
-    var isNarrowScreen = window.innerWidth < 1024;
-    var isSmallHeight = window.innerHeight < 700;
-
-    // If it's a mobile UA with touch OR small screen, block it
-    return isMobileUA && (hasTouchScreen || isNarrowScreen || isSmallHeight);
-  }
-
-  if (isRealMobileDevice()) {
-    document.documentElement.classList.add('mobile-detected');
-  }
-})();
-</script>
 </head>
 <body>
-
-<!-- Mobile Blocker Overlay -->
-<div id="mobile-blocker-overlay">
-  <div id="mobile-blocker-content">
-    <div id="mobile-blocker-icon">📱</div>
-    <h2>Desktop View Required</h2>
-    <p>This resume is optimized for desktop experience.<br>Please enable <strong>Desktop Mode</strong> to continue.</p>
-    <div id="mobile-blocker-instructions">
-      <p><strong>Chrome on Android:</strong><br>Tap ⋮ (menu) → Enable <em>"Desktop site"</em></p>
-      <p><strong>Safari on iOS:</strong><br>Tap <em>aA</em> (share icon) in address bar → <em>"Request Desktop Website"</em></p>
-    </div>
-    <button id="mobile-blocker-retry">✓ I've Enabled It - Check Again</button>
-  </div>
-</div>
 
 <nav>
   <a class="nav-brand" href="/">AM<span>.</span>resume</a>
@@ -222,8 +187,6 @@ html.mobile-detected #mobile-blocker-overlay {
 </nav>
 
 @RenderBody()
-
-<script src="~/js/mobile-check.js" asp-append-version="true"></script>
 
 </body>
 </html>

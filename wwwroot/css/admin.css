@@ -292,6 +292,105 @@ body.admin-editing [contenteditable="true"]:focus {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
 }
 
+.admin-template-select {
+  color-scheme: dark;
+  color: #f8fafc;
+  background-color: #111827 !important;
+  min-width: 225px;
+  cursor: pointer;
+}
+
+.admin-template-select option {
+  color: #f8fafc;
+  background-color: #111827;
+}
+
+.photo-draft-status {
+  color: #fde68a;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+#discard-photo-btn { padding: 5px 9px; font-size: 0.72rem; }
+#discard-photo-btn[hidden], #photo-draft-status[hidden] { display: none !important; }
+
+.photo-crop-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100001;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(3, 7, 18, 0.86);
+  backdrop-filter: blur(12px);
+}
+
+.photo-crop-overlay.active { display: flex; }
+
+.photo-crop-dialog {
+  width: min(100%, 460px);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #111827, #080c14);
+  color: #f8fafc;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
+}
+
+.photo-crop-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.photo-crop-header h2 { margin: 0 0 4px; font-size: 1.15rem; }
+.photo-crop-header p { margin: 0; color: #94a3b8; font-size: 0.84rem; }
+
+.photo-crop-close {
+  align-self: flex-start;
+  border: 0;
+  background: transparent;
+  color: #cbd5e1;
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.photo-crop-stage {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  background: #05070b;
+}
+
+#photo-crop-canvas {
+  display: block;
+  width: min(100%, 300px);
+  height: auto;
+  border-radius: 8px;
+  cursor: grab;
+  touch-action: none;
+}
+
+#photo-crop-canvas:active { cursor: grabbing; }
+.photo-zoom-label { display: flex; justify-content: space-between; margin: 16px 0 6px; font-size: 0.84rem; }
+.photo-zoom-slider { display: block; width: 100%; accent-color: #3b82f6; }
+.photo-save-note { margin: 12px 0 0; color: #fbbf24; font-size: 0.78rem; }
+.photo-crop-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+
+@media (max-width: 860px) {
+  .admin-bar { flex-wrap: wrap; gap: 8px; padding: 8px 12px; }
+  .admin-bar-info, .admin-bar-actions { flex-wrap: wrap; }
+  .photo-draft-status { white-space: normal; }
+}
+
 .admin-form-textarea {
   min-height: 90px;
   resize: vertical;

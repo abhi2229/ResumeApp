@@ -8,6 +8,14 @@
   // Global Resume Data State
   window.resumeState = window.resumeState || {};
   let isAdminLoggedIn = false;
+  let pendingProfilePhoto = null;
+  let pendingPhotoPreviewUrl = null;
+  let cropImage = null;
+  let cropImageUrl = null;
+  let cropZoom = 1;
+  let cropOffsetX = 0;
+  let cropOffsetY = 0;
+  let cropDrag = null;
 
   document.addEventListener('DOMContentLoaded', () => {
     initAdminTriggers();
@@ -32,6 +40,162 @@
     document.documentElement.setAttribute('data-template', templateName);
     window.resumeState.SelectedTemplate = templateName;
   };
+
+  window.openPhotoCropper = function (input) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+
+    const acceptedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if ((file.type && !acceptedTypes.includes(file.type)) || file.size > 20 * 1024 * 1024) {
+      alert('Choose a JPEG, PNG, or WebP image smaller than 20 MB.');
+      input.value = '';
+      return;
+    }
+
+    if (cropImageUrl) URL.revokeObjectURL(cropImageUrl);
+    cropImageUrl = URL.createObjectURL(file);
+    cropImage = new Image();
+    cropImage.onload = function () {
+      if (cropImage.naturalWidth * cropImage.naturalHeight > 40000000) {
+        alert('This image is too large to edit. Choose an image with fewer pixels.');
+        closePhotoCropper();
+        return;
+      }
+
+      cropZoom = 1;
+      const zoomSlider = document.getElementById('photo-zoom');
+      if (zoomSlider) zoomSlider.value = '1';
+      updateCropZoomLabel();
+      centerCropImage();
+      renderCropPreview();
+      const modal = document.getElementById('photo-crop-modal');
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+    };
+    cropImage.onerror = function () {
+      alert('The selected file could not be opened as an image.');
+      closePhotoCropper();
+    };
+    cropImage.src = cropImageUrl;
+  };
+
+  function getCropGeometry() {
+    const canvas = document.getElementById('photo-crop-canvas');
+    const scale = Math.max(canvas.width / cropImage.naturalWidth, canvas.height / cropImage.naturalHeight) * cropZoom;
+    return { canvas, width: cropImage.naturalWidth * scale, height: cropImage.naturalHeight * scale };
+  }
+
+  function centerCropImage() {
+    if (!cropImage) return;
+    const geometry = getCropGeometry();
+    cropOffsetX = (geometry.canvas.width - geometry.width) / 2;
+    cropOffsetY = (geometry.canvas.height - geometry.height) / 2;
+  }
+
+  function clampCropPosition(geometry) {
+    cropOffsetX = Math.min(0, Math.max(geometry.canvas.width - geometry.width, cropOffsetX));
+    cropOffsetY = Math.min(0, Math.max(geometry.canvas.height - geometry.height, cropOffsetY));
+  }
+
+  function renderCropPreview() {
+    if (!cropImage) return;
+    const geometry = getCropGeometry();
+    clampCropPosition(geometry);
+    const context = geometry.canvas.getContext('2d');
+    context.clearRect(0, 0, geometry.canvas.width, geometry.canvas.height);
+    context.drawImage(cropImage, cropOffsetX, cropOffsetY, geometry.width, geometry.height);
+  }
+
+  function updateCropZoomLabel() {
+    const label = document.getElementById('photo-zoom-value');
+    if (label) label.textContent = `${cropZoom.toFixed(1)}×`;
+  }
+
+  function closePhotoCropper() {
+    const modal = document.getElementById('photo-crop-modal');
+    if (modal) {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+    if (cropImageUrl) URL.revokeObjectURL(cropImageUrl);
+    cropImageUrl = null;
+    cropImage = null;
+    cropDrag = null;
+    const input = document.getElementById('profile-photo-file');
+    if (input) input.value = '';
+  }
+
+  window.cancelPhotoCrop = closePhotoCropper;
+
+  window.applyPhotoCrop = function () {
+    const canvas = document.getElementById('photo-crop-canvas');
+    canvas.toBlob(blob => {
+      if (!blob) {
+        alert('Could not create the cropped photo. Please try another image.');
+        return;
+      }
+
+      pendingProfilePhoto = new File([blob], 'profile-photo.jpg', { type: 'image/jpeg' });
+      if (pendingPhotoPreviewUrl) URL.revokeObjectURL(pendingPhotoPreviewUrl);
+      pendingPhotoPreviewUrl = URL.createObjectURL(blob);
+
+      const profileImage = document.querySelector('.photo-block img');
+      if (profileImage) profileImage.src = pendingPhotoPreviewUrl;
+      document.getElementById('photo-draft-status').hidden = false;
+      document.getElementById('discard-photo-btn').hidden = false;
+      closePhotoCropper();
+    }, 'image/jpeg', 0.92);
+  };
+
+  window.discardPhotoDraft = function () {
+    pendingProfilePhoto = null;
+    if (pendingPhotoPreviewUrl) URL.revokeObjectURL(pendingPhotoPreviewUrl);
+    pendingPhotoPreviewUrl = null;
+    const profileImage = document.querySelector('.photo-block img');
+    if (profileImage) profileImage.src = profileImage.dataset.photoUrl;
+    document.getElementById('photo-draft-status').hidden = true;
+    document.getElementById('discard-photo-btn').hidden = true;
+  };
+
+  const cropCanvas = document.getElementById('photo-crop-canvas');
+  if (cropCanvas) {
+    cropCanvas.addEventListener('pointerdown', event => {
+      if (!cropImage) return;
+      cropDrag = { x: event.clientX, y: event.clientY };
+      cropCanvas.setPointerCapture(event.pointerId);
+    });
+    cropCanvas.addEventListener('pointermove', event => {
+      if (!cropDrag || !cropImage) return;
+      const bounds = cropCanvas.getBoundingClientRect();
+      cropOffsetX += (event.clientX - cropDrag.x) * (cropCanvas.width / bounds.width);
+      cropOffsetY += (event.clientY - cropDrag.y) * (cropCanvas.height / bounds.height);
+      cropDrag = { x: event.clientX, y: event.clientY };
+      renderCropPreview();
+    });
+    ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(eventName => {
+      cropCanvas.addEventListener(eventName, () => { cropDrag = null; });
+    });
+  }
+
+  const photoZoomSlider = document.getElementById('photo-zoom');
+  if (photoZoomSlider) {
+    photoZoomSlider.addEventListener('input', () => {
+      cropZoom = parseFloat(photoZoomSlider.value);
+      updateCropZoomLabel();
+      centerCropImage();
+      renderCropPreview();
+    });
+  }
+
+  const cropModal = document.getElementById('photo-crop-modal');
+  if (cropModal) {
+    cropModal.addEventListener('click', event => {
+      if (event.target === cropModal) closePhotoCropper();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && cropModal.classList.contains('active')) closePhotoCropper();
+    });
+  }
 
   // Set up hidden access triggers
   function initAdminTriggers() {
@@ -175,6 +339,8 @@
     state.Profile.Phone = getDOMText('[data-profile="Phone"]') || state.Profile.Phone;
     state.Profile.Location = getDOMText('[data-profile="Location"]') || state.Profile.Location;
     state.Profile.LinkedIn = getDOMText('[data-profile="LinkedIn"]') || state.Profile.LinkedIn;
+    const profileImage = document.querySelector('.photo-block img');
+    state.Profile.PhotoUrl = (profileImage && profileImage.dataset.photoUrl) || state.Profile.PhotoUrl || '/image/Profile.jpeg';
 
     // 2. Experiences
     const expNodes = document.querySelectorAll('.exp-entry');
@@ -318,17 +484,37 @@
 
     try {
       const modelPayload = collectResumeModelFromDOM();
-      const res = await fetch('/Admin/UpdateData', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(modelPayload)
-      });
+      let res;
+      if (pendingProfilePhoto) {
+        const formData = new FormData();
+        formData.append('model', JSON.stringify(modelPayload));
+        formData.append('photo', pendingProfilePhoto, 'profile-photo.jpg');
+        res = await fetch('/Admin/SaveAllWithPhoto', { method: 'POST', body: formData });
+      } else {
+        res = await fetch('/Admin/UpdateData', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(modelPayload)
+        });
+      }
       const data = await res.json();
 
       if (data.success) {
         const lastUpdatedEl = document.getElementById('last-updated-time');
         if (lastUpdatedEl && data.lastUpdated) {
-          lastUpdatedEl.innerText = data.lastUpdated;
+          lastUpdatedEl.textContent = data.lastUpdated;
+        }
+        if (data.photoUrl) {
+          const profileImage = document.querySelector('.photo-block img');
+          if (profileImage) {
+            profileImage.dataset.photoUrl = data.photoUrl;
+            profileImage.src = `${data.photoUrl}?v=${Date.now()}`;
+          }
+          pendingProfilePhoto = null;
+          if (pendingPhotoPreviewUrl) URL.revokeObjectURL(pendingPhotoPreviewUrl);
+          pendingPhotoPreviewUrl = null;
+          document.getElementById('photo-draft-status').hidden = true;
+          document.getElementById('discard-photo-btn').hidden = true;
         }
         alert('✅ Resume updated successfully! All changes & template settings saved.');
       } else {

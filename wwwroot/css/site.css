@@ -737,8 +737,8 @@ nav:hover::after { width: calc(100% - 6rem); }
 
 /* ─── ENTRY ANIMATIONS ───────────────── */
 .fade-up {
-  opacity: 0;
-  transform: translateY(24px);
+  opacity: 1;
+  transform: none;
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
 }
 .fade-up.in { opacity: 1; transform: none; }
@@ -1177,7 +1177,35 @@ nav:hover::after { width: calc(100% - 6rem); }
 }
 
 /* ─── RESPONSIVE ─────────────────────── */
-/* Desktop layout only - no responsive changes */
+@media (max-width: 800px) {
+  nav { padding: 0 1rem; }
+  .nav-links { gap: 0.8rem; }
+  .nav-links a { font-size: 0.58rem; }
+  .shell { display: block; }
+  .sidebar {
+    position: relative;
+    top: auto;
+    height: auto;
+    overflow: visible;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .photo-block { max-height: 360px; }
+  .main-content { min-height: auto; padding: 2rem 1rem 3rem; }
+  .headline-block { margin-bottom: 2rem; padding-bottom: 2rem; }
+  .exp-section, .projects-section { margin-bottom: 2rem; padding-bottom: 2rem; }
+  .exp-entry { padding: 1.2rem; }
+  .exp-header { flex-wrap: wrap; }
+  .exp-period-badge { white-space: normal; }
+  .main-footer { align-items: flex-start; flex-direction: column; gap: 0.5rem; }
+}
+
+@media (max-width: 480px) {
+  .nav-links { gap: 0.45rem; }
+  .nav-links a { font-size: 0.5rem; letter-spacing: 0.06em; }
+  .photo-block { max-height: 300px; }
+  .sec-head { gap: 0.6rem; margin-bottom: 1.4rem; }
+}
 
 /* ─── PRINT RESPONSIVE ─────────────────── */
 @media print and (max-width: 860px) {

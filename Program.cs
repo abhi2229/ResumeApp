@@ -1,7 +1,10 @@
-   
+using ResumeApp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
+builder.Services.AddSingleton(new ResumeDataService(builder.Environment.WebRootPath));
 
 var app = builder.Build();
 
@@ -22,7 +25,7 @@ app.Use(async (context, next) =>
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; " +
             "font-src 'self' https://fonts.gstatic.com data:; " +
             "connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; " +
-            "img-src 'self' data: https:; " +
+            "img-src 'self' data: https: blob:; " +
             "frame-ancestors 'self'; " +
             "base-uri 'self'; " +
             "form-action 'self'");
